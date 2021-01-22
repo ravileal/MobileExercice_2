@@ -18,12 +18,12 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_nomePaciente"
+        android:id="@+id/input_edt_nomePaciente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_nomePaciente"
+            android:id="@+id/text_input_edt_nomePaciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nome_do_paciente" />
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_idade"
+            android:id="@+id/text_input_edt_idade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Idade" />
@@ -45,21 +45,33 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_tipoSanguePaciente"
+            android:id="@+id/text_input_edt_tipoSanguePaciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/tipo_de_sangue" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/button_main_add"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-        android:text="@string/button_add_paciente" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    <ListView
-        android:id="@+id/list_viewer_pacientes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/button_main_add"
+            android:layout_width="213dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/purple_500"
+            android:text="@string/button_add_voltar" />
+
+        <Button
+            android:id="@+id/button_upd_editar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:background="@color/purple_500"
+            android:text="@string/button_add_edit" />
+    </LinearLayout>
+
 </LinearLayout>

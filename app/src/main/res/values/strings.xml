@@ -11,4 +11,16 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="textview_itens">Digite o nome do paciente</string>
     <string name="edit_paciente">Nome do paciente</string>
+    <string name="button_add_paciente">Adicionar</string>
+    <string name="nome_do_paciente">Nome do paciente</string>
+    <string name="btn_popup_voltar">Voltar</string>
+    <string name="textview_popup_nome">Nome</string>
+    <string name="textview_void" />
+    <string name="textview_popup_cidade">Cidade</string>
+    <string name="Idade">Idade</string>
+    <string name="tipo_de_sangue">Tipo de sangue</string>
+    <string name="btn_popup_editar">Editar</string>
+    <string name="button_add_voltar">Voltar</string>
+    <string name="button_add_edit">Editar</string>
+    <string name="title_activity_main2">MainActivity</string>
 </resources>
