@@ -18,12 +18,12 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_edt_nomePaciente"
+        android:id="@+id/input_nomePaciente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_edt_nomePaciente"
+            android:id="@+id/text_input_nomePaciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/nome_do_paciente" />
@@ -31,25 +31,23 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="61dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_edt_idade"
+            android:inputType="number"
+            android:id="@+id/text_input_idade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLength="10"
             android:hint="@string/Idade" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_edt_tipoSanguePaciente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tipo_de_sangue" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="53dp"
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,8 +55,8 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_main_add"
-            android:layout_width="213dp"
+            android:id="@+id/button_upd_voltar"
+            android:layout_width="205dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/purple_500"
@@ -66,7 +64,7 @@
 
         <Button
             android:id="@+id/button_upd_editar"
-            android:layout_width="0dp"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"

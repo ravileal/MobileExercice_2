@@ -2,54 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearlayout_content_paciente"
+    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusableInTouchMode="false"
+    android:clickable="false"
+    android:focusable="false">
 
-    <LinearLayout
+
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:orientation="horizontal">
+        android:layout_height="58dp" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input_nomePaciente"
+    <ListView
+        android:id="@+id/list_viewer_pacientes"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_nomePaciente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nome_do_paciente" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_idade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/Idade" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_tipoSanguePaciente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/tipo_de_sangue" />
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contextClickable="true" />
 
     <Button
         android:id="@+id/button_main_add"
@@ -58,8 +29,4 @@
         android:background="@color/purple_500"
         android:text="@string/button_add_paciente" />
 
-    <ListView
-        android:id="@+id/list_viewer_pacientes"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

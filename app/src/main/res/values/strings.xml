@@ -23,4 +23,15 @@
     <string name="button_add_voltar">Voltar</string>
     <string name="button_add_edit">Editar</string>
     <string name="title_activity_main2">MainActivity</string>
+
+    <string-array name="tipoSangue">
+        <item>A+</item>
+        <item>A-</item>
+        <item>B+</item>
+        <item>B-</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
+    </string-array>
 </resources>

@@ -42,11 +42,11 @@ public class Paciente {
 
     @Override
     public String toString() {
-        return "Paciente{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", idade=" + idade +
-                ", tipoSangue='" + tipoSangue + '\'' +
-                '}';
+        return  "" +
+                "ID : " + id + "\n" +
+                "Nome: " + nome + "\n" +
+                "Idade: " + idade + "\n" +
+                "Tipo de sangue: " + tipoSangue +
+                "";
     }
 }

@@ -10,19 +10,23 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputEditText;
 
 public class MainActivity extends AppCompatActivity {
 
-    ListView listview_paciente;
-    TextInputEditText inputText;
-    ArrayAdapter<String> adapter;
-    public static final String position = "";
+    private ListView listview_paciente;
+    private ArrayAdapter<String> adapter;
+    private static final int ATUALIZAR = 1;
+    public static final String position = "Paciente ID";
+    public static final int ADICIONAR = -1;
+    public static final int EDITAR = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,79 +36,33 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         listview_paciente = findViewById(R.id.list_viewer_pacientes);
-        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1);
-        for(Paciente p : RepositoryPaciente.getList_paciente())
-            adapter.add(p.getNome());
-        listview_paciente.setAdapter(adapter);
+        showListViewPaciene();
 
-        onCreateButtonListern();
-        onCreateListViewListern();
+        onClickButtonListern();
+        onClickItemListern();
     }
 
-    private void clearText(){
-        ((TextInputEditText)findViewById(R.id.text_input_nomePaciente)).setText("");
-        ((TextInputEditText)findViewById(R.id.text_input_idade)).setText("");
-        ((TextInputEditText)findViewById(R.id.text_input_tipoSanguePaciente)).setText("");
-    }
-
-    private void onCreateButtonListern(){
+    private void onClickButtonListern(){
         findViewById(R.id.button_main_add).setOnClickListener(v -> {
-
-            Paciente p = addPaciente();
-            if(p == null) return;
-            clearText();
-
-            adapter.add(p.getNome());
-            listview_paciente.setAdapter(adapter);
+            Intent intent = new Intent(this, EditActivity.class);
+            intent.putExtra( position, ADICIONAR);
+            startActivityForResult(intent, ATUALIZAR);
         });
     }
 
-    private void onCreateListViewListern(){
+    private void onClickItemListern(){
         listview_paciente.setOnItemClickListener((parent, view, position, id) -> {
             openPopUp(RepositoryPaciente.getPaciente(position));
         });
     }
 
-    private Paciente addPaciente(){
-        String text;
-        Paciente paciente = new Paciente();
-
-        paciente.setId(RepositoryPaciente.getSize());
-
-        inputText = findViewById(R.id.text_input_nomePaciente);
-        text = inputText.getText().toString();
-        Log.d("aasddd : ", text);
-        if(text.isEmpty()) return null;
-        paciente.setNome(text);
-
-        inputText = findViewById(R.id.text_input_idade);
-        text = inputText.getText().toString();
-        if(text.isEmpty()) return null;
-        paciente.setIdade(Integer.parseInt(text));
-
-        inputText = findViewById(R.id.text_input_tipoSanguePaciente);
-        text = inputText.getText().toString();
-        if(text.isEmpty()) return null;
-        paciente.setTipoSangue(text);
-
-        RepositoryPaciente.addPaciente(paciente);
-        return paciente;
-    }
-
     private void openPopUp(Paciente paciente){
-        Dialog dialog = new Dialog(this, R.style.FullHeightDialog );
-        dialog.setContentView(R.layout.fragment);
+        Dialog dialog = new Dialog(this, R.style.PopupDialog );
+        dialog.setContentView(R.layout.fragment_popup);
         dialog.show();
 
-        String text = "" +
-                "Id : " + paciente.getId() + "\n" +
-                "Nome: " + paciente.getNome() + "\n" +
-                "Idade: " + paciente.getIdade() + "\n" +
-                "Tipo de sangue: " + paciente.getTipoSangue() +
-                "";
-
         TextView textView = dialog.findViewById(R.id.textView_info_paciente);
-        textView.setText(text);
+        textView.setText(paciente.toString());
 
         dialog.findViewById(R.id.button_popup_voltar).setOnClickListener( v -> {
             dialog.dismiss();
@@ -114,31 +72,36 @@ public class MainActivity extends AppCompatActivity {
             dialog.dismiss();
             Intent intent = new Intent(this, EditActivity.class);
             intent.putExtra( position, paciente.getId());
-            startActivity(intent);
+            startActivityForResult(intent, ATUALIZAR);
         });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ATUALIZAR)
+            showListViewPaciene();
     }
 
-    private void onClickItemListern(){
-        listview_paciente = findViewById(R.id.list_viewer_pacientes);
+    private void showListViewPaciene(){
+        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1);
 
-        listview_paciente.setOnClickListener(v -> {
-            String nome = listview_paciente.getSelectedItem().toString();
-            Toast.makeText(this, nome, Toast.LENGTH_LONG);
-        });
+        for(Paciente p : RepositoryPaciente.getList_paciente())
+            adapter.add(p.getNome());
 
+        listview_paciente.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         return (id == R.id.action_settings)? true : super.onOptionsItemSelected(item);
     }
+
 }
