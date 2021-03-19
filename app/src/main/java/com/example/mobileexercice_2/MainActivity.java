@@ -10,23 +10,25 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import Controller.ControllerPaciente;
+import Model.Paciente;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private ListView listview_paciente;
-    private ArrayAdapter<String> adapter;
-    private static final int ATUALIZAR = 1;
-    public static final String position = "Paciente ID";
-    public static final int ADICIONAR = -1;
+    private ArrayList<String> listIdPaciente = new ArrayList<>();
+    public static final String IDPACIENTE = "Paciente ID";
+    public static final String ACTION = "action";
+    public static final int ADICIONAR = 1;
     public static final int EDITAR = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,25 +37,40 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listview_paciente = findViewById(R.id.list_viewer_pacientes);
-        showListViewPaciene();
-
-        onClickButtonListern();
-        onClickItemListern();
+        configureItemListView();
+        configureButtonAdicionar();
     }
 
-    private void onClickButtonListern(){
+    private void configureButtonAdicionar(){
         findViewById(R.id.button_main_add).setOnClickListener(v -> {
-            Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra( position, ADICIONAR);
-            startActivityForResult(intent, ATUALIZAR);
+            Intent intent = new Intent(this, AddAndEditActivity.class);
+            intent.putExtra(MainActivity.ACTION, ADICIONAR);
+            startActivityForResult(intent, ADICIONAR);
         });
     }
 
-    private void onClickItemListern(){
+    private void configureItemListView(){
+        listview_paciente = findViewById(R.id.list_viewer_pacientes);
+        listview_paciente.setAdapter(null);
+        listview_paciente.setAdapter(configureAdapterListView());
         listview_paciente.setOnItemClickListener((parent, view, position, id) -> {
-            openPopUp(RepositoryPaciente.getPaciente(position));
+            ControllerPaciente.readId(listIdPaciente.get(position), list -> {
+                openPopUp(list.get(0));
+            });
         });
+    }
+
+    private ArrayAdapter<String> configureAdapterListView(){
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1);
+
+        ControllerPaciente.readAll(list -> {
+            for(Paciente p : list) {
+                adapter.add(p.getNome());
+                listIdPaciente.add(p.getId());
+            }
+        });
+
+        return adapter;
     }
 
     private void openPopUp(Paciente paciente){
@@ -70,38 +87,11 @@ public class MainActivity extends AppCompatActivity {
 
         dialog.findViewById(R.id.button_popup_editar).setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra( position, paciente.getId());
-            startActivityForResult(intent, ATUALIZAR);
+            Intent intent = new Intent(this, AddAndEditActivity.class);
+            intent.putExtra( IDPACIENTE, paciente.getId() );
+            intent.putExtra(MainActivity.ACTION, EDITAR);
+            startActivityForResult(intent, EDITAR);
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ATUALIZAR)
-            showListViewPaciene();
-    }
-
-    private void showListViewPaciene(){
-        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1);
-
-        for(Paciente p : RepositoryPaciente.getList_paciente())
-            adapter.add(p.getNome());
-
-        listview_paciente.setAdapter(adapter);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        return (id == R.id.action_settings)? true : super.onOptionsItemSelected(item);
     }
 
 }

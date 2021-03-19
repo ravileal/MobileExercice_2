@@ -63,13 +63,13 @@
             android:text="@string/button_add_voltar" />
 
         <Button
-            android:id="@+id/button_upd_editar"
+            android:id="@+id/button_confirm"
             android:layout_width="202dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
             android:background="@color/purple_500"
-            android:text="@string/button_add_edit" />
+            android:text="Confirmar" />
     </LinearLayout>
 
 </LinearLayout>

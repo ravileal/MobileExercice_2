@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "501138440961",
+    "project_id": "exercicemobile",
+    "storage_bucket": "exercicemobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501138440961:android:b13e4d6c89e0de6e089100",
+        "android_client_info": {
+          "package_name": "com.example.mobileexercice_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501138440961-npd7v4glns5uto307500k33a2r0oq1hr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUVuxEZr3pvOd2YQ1oon_-YcadBrM8nh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501138440961-npd7v4glns5uto307500k33a2r0oq1hr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
